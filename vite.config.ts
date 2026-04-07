@@ -19,4 +19,17 @@ export default defineConfig({
 
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
+  
+  // === CONFIGURAÇÃO ADICIONADA PARA MULTIPLAS PÁGINAS ===
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        cardapio: path.resolve(__dirname, 'cardapio.html'),
+        sobre: path.resolve(__dirname, 'sobre.html'),
+        pedidos: path.resolve(__dirname, 'pedidos.html'),
+        contato: path.resolve(__dirname, 'contato.html')
+      }
+    }
+  }
 })
