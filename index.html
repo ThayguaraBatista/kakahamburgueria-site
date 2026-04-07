@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KAKA BURGUER - Hambúrgueres artesanais de alta qualidade com ingredientes premium">
+    <title>KAKA BURGUER - Hambúrgueres Artesanais</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ===== Navegação ===== -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-primary">KAKA</span>
+                <span class="brand-white">BURGUER</span>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="cardapio.html">Cardápio</a></li>
+                <li><a href="pedidos.html">Pedidos</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== Hero Section ===== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="text-primary">KAKA</span>
+                <span class="text-white"> BURGUER</span>
+            </h1>
+            <p class="hero-subtitle">
+                Hambúrgueres artesanais que vão explodir seu paladar!
+            </p>
+            <div class="hero-buttons">
+                <a href="cardapio.html" class="btn btn-primary">Ver Cardápio</a>
+                <a href="pedidos.html" class="btn btn-secondary">Fazer Pedido</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Features Section ===== -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <!-- Feature 1: Receitas Exclusivas -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/>
+                            <line x1="6" y1="17" x2="18" y2="17"/>
+                        </svg>
+                    </div>
+                    <h3>Receitas Exclusivas</h3>
+                    <p>Desenvolvidas por chefs especializados em hambúrgueres gourmet com muito carinho e dedicação</p>
+                </div>
+
+                <!-- Feature 2: Ingredientes Premium -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </div>
+                    <h3>Ingredientes Premium</h3>
+                    <p>Apenas os melhores ingredientes, frescos e selecionados diariamente para garantir qualidade máxima</p>
+                </div>
+
+                <!-- Feature 3: Entrega Rápida -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                    </div>
+                    <h3>Entrega Rápida</h3>
+                    <p>Seu pedido quentinho e fresquinho em até 45 minutos na sua casa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 KAKA BURGUER. Todos os direitos reservados.</p>
+            <p>Desenvolvido com ❤️ e fome!</p>
+        </div>
+    </footer>
+
+    <!-- ===== Scripts ===== -->
+    <script src="script.js"></script>
+</body>
+</html>

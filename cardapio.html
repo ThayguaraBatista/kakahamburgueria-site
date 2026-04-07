@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conheça o cardápio completo do KAKA BURGUER - Hambúrgueres, bebidas e adicionais">
+    <title>KAKA BURGUER - Cardápio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ===== Navegação ===== -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-primary">KAKA</span>
+                <span class="brand-white">BURGUER</span>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="cardapio.html" class="active">Cardápio</a></li>
+                <li><a href="pedidos.html">Pedidos</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== Cabeçalho da Página ===== -->
+    <section class="content-section" style="padding-top: 60px;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h1 class="section-title">
+                    <span class="text-primary">Nosso</span>
+                    <span class="text-white"> Cardápio</span>
+                </h1>
+                <p class="section-subtitle">
+                    Confira todos os nossos produtos deliciosos
+                </p>
+            </div>
+
+            <!-- ===== Hambúrgueres ===== -->
+            <div style="margin-bottom: 80px;">
+                <h2 class="text-primary" style="font-size: 2rem; margin-bottom: 40px; text-align: center;">
+                    🍔 Hambúrgueres Artesanais
+                </h2>
+                <div class="menu-grid" id="burgersGrid">
+                    <!-- Carregado via JavaScript -->
+                </div>
+            </div>
+
+            <!-- ===== Bebidas ===== -->
+            <div style="margin-bottom: 80px;">
+                <h2 class="text-primary" style="font-size: 2rem; margin-bottom: 40px; text-align: center;">
+                    🥤 Bebidas Geladas
+                </h2>
+                <div class="menu-grid" id="drinksGrid">
+                    <!-- Carregado via JavaScript -->
+                </div>
+            </div>
+
+            <!-- ===== Adicionais ===== -->
+            <div style="margin-bottom: 80px;">
+                <h2 class="text-primary" style="font-size: 2rem; margin-bottom: 40px; text-align: center;">
+                    ➕ Adicionais
+                </h2>
+                <div class="menu-grid" id="addonsGrid">
+                    <!-- Carregado via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Modal para Ver Imagem Ampliada ===== -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <button class="modal-close" onclick="closeImageModal()" aria-label="Fechar">&times;</button>
+            <h2 id="modalTitle" class="text-white" style="text-align: center; margin-bottom: 20px;"></h2>
+            <img id="modalImage" class="modal-image" src="" alt="">
+        </div>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 KAKA BURGUER. Todos os direitos reservados.</p>
+            <p>Desenvolvido com ❤️ e fome!</p>
+        </div>
+    </footer>
+
+    <!-- ===== Scripts ===== -->
+    <script src="menu-data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        /**
+         * Renderizar Cardápio Completo
+         */
+        function renderMenu() {
+            const burgersGrid = document.getElementById('burgersGrid');
+            const drinksGrid = document.getElementById('drinksGrid');
+            const addonsGrid = document.getElementById('addonsGrid');
+
+            // Limpar grids
+            burgersGrid.innerHTML = '';
+            drinksGrid.innerHTML = '';
+            addonsGrid.innerHTML = '';
+
+            // Renderizar Hambúrgueres
+            menuItems.filter(item => item.category === 'Burguers').forEach(item => {
+                burgersGrid.innerHTML += createMenuItemHTML(item);
+            });
+
+            // Renderizar Bebidas
+            menuItems.filter(item => item.category === 'Bebidas').forEach(item => {
+                drinksGrid.innerHTML += createMenuItemHTML(item);
+            });
+
+            // Renderizar Adicionais
+            menuItems.filter(item => item.category === 'Adicionais').forEach(item => {
+                addonsGrid.innerHTML += createMenuItemHTML(item);
+            });
+        }
+
+        /**
+         * Criar HTML de Item do Menu
+         */
+        function createMenuItemHTML(item) {
+            return `
+                <div class="menu-item" onclick="openImageModal('${item.image}', '${item.name}')">
+                    <img src="${item.image}" 
+                         alt="${item.name}" 
+                         onerror="this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400'">
+                    <div class="menu-item-content">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        <div class="menu-item-price">R$ ${item.price.toFixed(2)}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        /**
+         * Abrir Modal de Imagem
+         */
+        function openImageModal(imageSrc, title) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        /**
+         * Fechar Modal de Imagem
+         */
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.remove('active');
+        }
+
+        /**
+         * Fechar modal ao clicar fora
+         */
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+
+        /**
+         * Renderizar cardápio ao carregar a página
+         */
+        document.addEventListener('DOMContentLoaded', renderMenu);
+    </script>
+</body>
+</html>

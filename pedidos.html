@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Faça seu pedido de hambúrgueres artesanais no KAKA BURGUER - Delivery e retirada">
+    <title>KAKA BURGUER - Fazer Pedido</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ===== Navegação ===== -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-primary">KAKA</span>
+                <span class="brand-white">BURGUER</span>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="cardapio.html">Cardápio</a></li>
+                <li><a href="pedidos.html" class="active">Pedidos</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== Cabeçalho da Página ===== -->
+    <section class="content-section" style="padding-top: 60px;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h1 class="section-title">
+                    <span class="text-primary">Faça seu</span>
+                    <span class="text-white"> Pedido</span>
+                </h1>
+                <p class="section-subtitle">
+                    Monte seu pedido e receba quentinho em casa!
+                </p>
+            </div>
+
+            <!-- ===== Layout Principal: Menu + Carrinho ===== -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start;">
+                
+                <!-- ===== Seção de Itens do Menu ===== -->
+                <div>
+                    <!-- Hambúrgueres -->
+                    <div style="margin-bottom: 60px;">
+                        <h2 class="text-primary" style="font-size: 2rem; margin-bottom: 30px;">
+                            🍔 Hambúrgueres
+                        </h2>
+                        <div class="menu-grid" id="orderBurgersGrid">
+                            <!-- Itens carregados via JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Bebidas -->
+                    <div style="margin-bottom: 60px;">
+                        <h2 class="text-primary" style="font-size: 2rem; margin-bottom: 30px;">
+                            🥤 Bebidas
+                        </h2>
+                        <div class="menu-grid" id="orderDrinksGrid">
+                            <!-- Itens carregados via JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Adicionais -->
+                    <div style="margin-bottom: 60px;">
+                        <h2 class="text-primary" style="font-size: 2rem; margin-bottom: 30px;">
+                            ➕ Adicionais
+                        </h2>
+                        <div class="menu-grid" id="orderAddonsGrid">
+                            <!-- Itens carregados via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Carrinho de Compras ===== -->
+                <div class="cart-section">
+                    <h3 class="text-white mb-6" style="font-size: 1.5rem; display: flex; align-items: center; gap: 10px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"/>
+                            <circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                        </svg>
+                        Seu Pedido
+                    </h3>
+
+                    <!-- Lista de Itens do Carrinho -->
+                    <div id="cartItems">
+                        <div class="empty-state">
+                            <p>Carrinho vazio</p>
+                        </div>
+                    </div>
+
+                    <!-- Total do Carrinho -->
+                    <div class="cart-total">
+                        <div class="cart-total-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotalAmount">R$ 0,00</span>
+                        </div>
+                        <div class="cart-total-row">
+                            <span>Taxa de Entrega:</span>
+                            <span id="deliveryFee">Grátis</span>
+                        </div>
+                        <div class="cart-total-row final">
+                            <span>Total:</span>
+                            <span id="totalAmount">R$ 0,00</span>
+                        </div>
+                    </div>
+
+                    <!-- Botão Finalizar Pedido -->
+                    <button onclick="openCheckoutModal()" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+                        Finalizar Pedido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Modal: Adicionar Item ao Carrinho ===== -->
+    <div id="addItemModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeAddItemModal()" aria-label="Fechar">&times;</button>
+            
+            <h2 id="itemModalTitle" class="text-white mb-6"></h2>
+            <img id="itemModalImage" class="modal-image" src="" alt="" style="display: none;">
+            
+            <form id="addItemForm" onsubmit="addToCart(event)">
+                <input type="hidden" id="selectedItemId">
+                
+                <!-- Tipo de Queijo (apenas para hambúrgueres) -->
+                <div class="form-group" id="cheeseTypeGroup" style="display: none;">
+                    <label>Tipo de Queijo: <span style="color: var(--primary);">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="cheeseType" value="cheddar" checked>
+                            <span>🧀 Cheddar</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="cheeseType" value="mussarela">
+                            <span>🧀 Mussarela</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Ponto da Carne (apenas para hambúrgueres) -->
+                <div class="form-group" id="meatDonenessGroup" style="display: none;">
+                    <label>Ponto da Carne: <span style="color: var(--primary);">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="meatDoneness" value="mal passado" checked>
+                            <span>🥩 Mal Passado</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="meatDoneness" value="ao ponto">
+                            <span>🥩 Ao Ponto</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="meatDoneness" value="bem passado">
+                            <span>🥩 Bem Passado</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Observações -->
+                <div class="form-group">
+                    <label>Observações (opcional):</label>
+                    <textarea name="notes" class="form-control" rows="3" placeholder="Ex: Sem cebola, extra molho..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Adicionar ao Carrinho
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Checkout (Finalizar Pedido) ===== -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCheckoutModal()" aria-label="Fechar">&times;</button>
+            
+            <h2 class="text-white mb-6">Finalizar Pedido</h2>
+            
+            <form id="checkoutForm" onsubmit="placeOrder(event)">
+                <!-- Nome Completo -->
+                <div class="form-group">
+                    <label>Nome Completo: <span style="color: var(--primary);">*</span></label>
+                    <input type="text" name="customerName" class="form-control" placeholder="Seu nome completo" required>
+                </div>
+
+                <!-- Telefone -->
+                <div class="form-group">
+                    <label>Telefone: <span style="color: var(--primary);">*</span></label>
+                    <input type="tel" name="customerPhone" class="form-control" placeholder="(11) 99999-9999" required>
+                </div>
+
+                <!-- Opção de Entrega -->
+                <div class="form-group">
+                    <label>Opção de Entrega: <span style="color: var(--primary);">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="deliveryOption" value="retirada" checked onchange="updateDeliveryFee()">
+                            <span>🏪 Retirada (Grátis)</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="deliveryOption" value="entrega" onchange="updateDeliveryFee()">
+                            <span>🛵 Entrega (R$ 5,00)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Endereço de Entrega (condicional) -->
+                <div class="form-group" id="addressGroup" style="display: none;">
+                    <label>Endereço de Entrega: <span style="color: var(--primary);">*</span></label>
+                    <textarea name="customerAddress" class="form-control" rows="3" placeholder="Rua, número, complemento, bairro"></textarea>
+                </div>
+
+                <!-- Forma de Pagamento -->
+                <div class="form-group">
+                    <label>Forma de Pagamento: <span style="color: var(--primary);">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="paymentMethod" value="pix" checked onchange="toggleChangeField()">
+                            <span>📱 PIX</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="paymentMethod" value="credito" onchange="toggleChangeField()">
+                            <span>💳 Cartão de Crédito</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="paymentMethod" value="debito" onchange="toggleChangeField()">
+                            <span>💳 Cartão de Débito</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="paymentMethod" value="dinheiro" onchange="toggleChangeField()">
+                            <span>💵 Dinheiro</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Troco (condicional para dinheiro) -->
+                <div class="form-group" id="changeGroup" style="display: none;">
+                    <label>Troco para quanto?</label>
+                    <input type="number" name="changeFor" class="form-control" step="0.01" placeholder="50.00">
+                </div>
+
+                <!-- Botão Confirmar -->
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Confirmar Pedido
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Pedido Confirmado ===== -->
+    <div id="successModal" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <button class="modal-close" onclick="closeSuccessModal()" aria-label="Fechar">&times;</button>
+            
+            <div style="color: var(--primary); font-size: 5rem; margin-bottom: 20px;">✓</div>
+            
+            <h2 class="text-white mb-4">Pedido Realizado!</h2>
+            
+            <p class="text-gray" style="font-size: 1.1rem; margin-bottom: 30px; line-height: 1.8;">
+                Seu pedido foi enviado com sucesso!<br>
+                Em breve entraremos em contato para confirmar.
+            </p>
+            
+            <button onclick="closeSuccessModal()" class="btn btn-primary">
+                Fazer Novo Pedido
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 KAKA BURGUER. Todos os direitos reservados.</p>
+            <p>Desenvolvido com ❤️ e fome!</p>
+        </div>
+    </footer>
+
+    <!-- ===== Scripts ===== -->
+    <script src="menu-data.js"></script>
+    <script src="orders.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

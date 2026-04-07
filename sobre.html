@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conheça a história e valores do KAKA BURGUER - Hambúrgueres artesanais feitos com paixão">
+    <title>KAKA BURGUER - Sobre Nós</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ===== Navegação ===== -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-primary">KAKA</span>
+                <span class="brand-white">BURGUER</span>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sobre.html" class="active">Sobre</a></li>
+                <li><a href="cardapio.html">Cardápio</a></li>
+                <li><a href="pedidos.html">Pedidos</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== Hero da Página ===== -->
+    <section class="page-header" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=1200') center/cover;">
+        <div>
+            <h1>
+                <span class="text-primary">Nossa</span>
+                <span class="text-white"> História</span>
+            </h1>
+        </div>
+    </section>
+
+    <!-- ===== História ===== -->
+    <section class="content-section">
+        <div class="container" style="max-width: 900px;">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 class="section-title text-white">A História do KAKA BURGUER</h2>
+                <p class="text-gray" style="font-size: 1.1rem; line-height: 1.8;">
+                    O Kaka Burguer foi fundado em 2023 com a proposta de oferecer hambúrgueres artesanais 
+                    feitos com qualidade, sabor e dedicação. Desde o início, a ideia sempre foi preparar 
+                    hambúrgueres diferentes dos tradicionais, usando ingredientes selecionados e um preparo especial.
+                </p>
+            </div>
+            
+            <div class="text-gray" style="font-size: 1.1rem; line-height: 1.8; text-align: justify;">
+                <p style="margin-bottom: 20px;">
+                    O grande destaque do Kaka Burguer é que os hambúrgueres são <strong class="text-primary">feitos artesanalmente 
+                    e preparados na brasa</strong>, o que garante um sabor defumado único e muito mais suculência. 
+                    Cada hambúrguer é preparado com cuidado, buscando sempre entregar uma experiência deliciosa 
+                    para os clientes.
+                </p>
+                
+                <p style="margin-bottom: 20px;">
+                    Nossa receita é simples: <strong class="text-primary">paixão + ingredientes de qualidade + técnica artesanal</strong>. 
+                    Não cortamos caminhos quando se trata de qualidade. Cada blend é moído diariamente, 
+                    cada vegetal é fresco e cada pão é assado no ponto perfeito.
+                </p>
+                
+                <p>
+                    Mesmo sendo uma marca jovem, o Kaka Burguer vem conquistando espaço e clientes graças ao 
+                    seu compromisso com o sabor, qualidade e atendimento. A missão é continuar crescendo e 
+                    levando os <strong class="text-primary">melhores hambúrgueres artesanais na brasa</strong> para 
+                    cada vez mais pessoas.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Valores ===== -->
+    <section class="content-section" style="background-color: rgba(0, 0, 0, 0.4);">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="text-primary">Nossos</span>
+                <span class="text-white"> Valores</span>
+            </h2>
+            
+            <div class="features-grid">
+                <!-- Valor 1: Paixão -->
+                <div class="card" style="text-align: center;">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white mb-4">Paixão</h3>
+                    <p class="text-gray">
+                        Amamos o que fazemos e colocamos amor em cada hambúrguer que preparamos
+                    </p>
+                </div>
+
+                <!-- Valor 2: Qualidade -->
+                <div class="card" style="text-align: center;">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="8" r="7"/>
+                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white mb-4">Qualidade</h3>
+                    <p class="text-gray">
+                        Ingredientes premium e processos artesanais garantem o melhor sabor
+                    </p>
+                </div>
+
+                <!-- Valor 3: Comunidade -->
+                <div class="card" style="text-align: center;">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-white mb-4">Comunidade</h3>
+                    <p class="text-gray">
+                        Nossos clientes são parte da nossa família e sua satisfação é nossa prioridade
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Equipe ===== -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="text-primary">Nossa</span>
+                <span class="text-white"> Equipe</span>
+            </h2>
+            
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p class="text-gray" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">
+                    Nossa equipe é formada por <strong class="text-primary">chefs apaixonados</strong> e 
+                    profissionais dedicados que trabalham incansavelmente para garantir que cada pedido 
+                    seja uma experiência memorável.
+                </p>
+                
+                <p class="text-gray" style="font-size: 1.1rem; line-height: 1.8;">
+                    Venha nos visitar e conheça as pessoas por trás dos <strong class="text-primary">melhores 
+                    hambúrgueres da cidade</strong>!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 KAKA BURGUER. Todos os direitos reservados.</p>
+            <p>Desenvolvido com ❤️ e fome!</p>
+        </div>
+    </footer>
+
+    <!-- ===== Scripts ===== -->
+    <script src="script.js"></script>
+</body>
+</html>
