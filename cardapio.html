@@ -1,68 +1,61 @@
-<script>
-        const menuItems = [
-            {
-                name: "Brasa Vini",
-                description: "Pão brioche, queijo, blend (120g), bacon, cebola caramelizada e geleia de pimenta.",
-                price: 25.00,
-                image: "assets/imagens/brasa-vini.jpg",
-                category: "Burguers"
-            },
-            {
-                name: "Super Brasa",
-                description: "2 queijos, 2 blends (120g cada) e bacon fatiado.",
-                price: 24.00,
-                image: "assets/imagens/superbrasa.jpg",
-                category: "Burguers"
-            },
-            {
-                name: "Brasa Gorgonzola",
-                description: "Pão brioche, blend (120g), bacon, cebola caramelizada e gorgonzola.",
-                price: 21.00,
-                image: "assets/imagens/brasagorgonzola.jpg",
-                category: "Burguers"
-            },
-            {
-                name: "Coca-Cola 1L",
-                description: "Refrigerante gelado 1 litro.",
-                price: 9.00,
-                image: "assets/imagens/coca1litro.png",
-                category: "Bebidas"
-            }
-        ];
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAKA BURGUER - Cardápio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand"><span class="brand-primary">KAKA</span> <span class="brand-white">BURGUER</span></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cardapio.html" class="active">Cardápio</a></li>
+            </ul>
+        </div>
+    </nav>
 
+    <section class="content-section">
+        <div class="container">
+            <h1 style="text-align: center; color: white;"><span style="color: #ff8c00;">Nosso</span> Cardápio</h1>
+            
+            <h2 style="color: #ff8c00; text-align: center; margin-top: 40px;">🍔 Hambúrgueres Artesanais</h2>
+            <div class="menu-grid" id="burgersGrid"></div>
+
+            <h2 style="color: #ff8c00; text-align: center; margin-top: 40px;">🥤 Bebidas Geladas</h2>
+            <div class="menu-grid" id="drinksGrid"></div>
+        </div>
+    </section>
+
+    <script src="menu-data.js"></script>
+    <script>
         function renderMenu() {
             const burgersGrid = document.getElementById('burgersGrid');
             const drinksGrid = document.getElementById('drinksGrid');
 
-            if (burgersGrid) {
-                burgersGrid.innerHTML = menuItems
-                    .filter(item => item.category === 'Burguers')
-                    .map(item => `
-                        <div class="menu-item">
-                            <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/300x200?text=Erro+na+Imagem'">
-                            <div class="menu-item-content">
-                                <h3>${item.name}</h3>
-                                <p>${item.description}</p>
-                                <div class="menu-item-price">R$ ${item.price.toFixed(2)}</div>
-                            </div>
-                        </div>
-                    `).join('');
+            if (typeof menuItems !== 'undefined') {
+                burgersGrid.innerHTML = menuItems.filter(i => i.category === 'Burguers')
+                    .map(item => createHTML(item)).join('');
+                
+                drinksGrid.innerHTML = menuItems.filter(i => i.category === 'Bebidas')
+                    .map(item => createHTML(item)).join('');
             }
+        }
 
-            if (drinksGrid) {
-                drinksGrid.innerHTML = menuItems
-                    .filter(item => item.category === 'Bebidas')
-                    .map(item => `
-                        <div class="menu-item">
-                            <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/300x200?text=Erro+na+Imagem'">
-                            <div class="menu-item-content">
-                                <h3>${item.name}</h3>
-                                <p>${item.description}</p>
-                                <div class="menu-item-price">R$ ${item.price.toFixed(2)}</div>
-                            </div>
-                        </div>
-                    `).join('');
-            }
+        function createHTML(item) {
+            return `
+                <div class="menu-item">
+                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400'">
+                    <div class="menu-item-content">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        <div class="menu-item-price">R$ ${item.price.toFixed(2)}</div>
+                    </div>
+                </div>`;
         }
         document.addEventListener('DOMContentLoaded', renderMenu);
     </script>
+</body>
+</html>
