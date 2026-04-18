@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Conheça o cardápio completo do KAKA BURGUER - Hambúrgueres, bebidas e adicionais">
     <title>KAKA BURGUER - Cardápio</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <!-- ===== Navegação ===== -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
@@ -30,7 +29,6 @@
         </div>
     </nav>
 
-    <!-- ===== Cabeçalho da Página ===== -->
     <section class="content-section" style="padding-top: 60px;">
         <div class="container">
             <div style="text-align: center; margin-bottom: 60px;">
@@ -43,39 +41,32 @@
                 </p>
             </div>
 
-            <!-- ===== Hambúrgueres ===== -->
             <div style="margin-bottom: 80px;">
                 <h2 class="text-primary" style="font-size: 2rem; margin-bottom: 40px; text-align: center;">
                     🍔 Hambúrgueres Artesanais
                 </h2>
                 <div class="menu-grid" id="burgersGrid">
-                    <!-- Carregado via JavaScript -->
-                </div>
+                    </div>
             </div>
 
-            <!-- ===== Bebidas ===== -->
             <div style="margin-bottom: 80px;">
                 <h2 class="text-primary" style="font-size: 2rem; margin-bottom: 40px; text-align: center;">
                     🥤 Bebidas Geladas
                 </h2>
                 <div class="menu-grid" id="drinksGrid">
-                    <!-- Carregado via JavaScript -->
-                </div>
+                    </div>
             </div>
 
-            <!-- ===== Adicionais ===== -->
             <div style="margin-bottom: 80px;">
                 <h2 class="text-primary" style="font-size: 2rem; margin-bottom: 40px; text-align: center;">
                     ➕ Adicionais
                 </h2>
                 <div class="menu-grid" id="addonsGrid">
-                    <!-- Carregado via JavaScript -->
-                </div>
+                    </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== Modal para Ver Imagem Ampliada ===== -->
     <div id="imageModal" class="modal">
         <div class="modal-content" style="max-width: 900px;">
             <button class="modal-close" onclick="closeImageModal()" aria-label="Fechar">&times;</button>
@@ -84,7 +75,6 @@
         </div>
     </div>
 
-    <!-- ===== Footer ===== -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2024 KAKA BURGUER. Todos os direitos reservados.</p>
@@ -92,9 +82,8 @@
         </div>
     </footer>
 
-    <!-- ===== Scripts ===== -->
-    <script src="menu-data.js"></script>
-    <script src="script.js"></script>
+    <script src="./menu-data.js"></script>
+    <script src="./script.js"></script>
     <script>
         /**
          * Renderizar Cardápio Completo
@@ -105,24 +94,28 @@
             const addonsGrid = document.getElementById('addonsGrid');
 
             // Limpar grids
-            burgersGrid.innerHTML = '';
-            drinksGrid.innerHTML = '';
-            addonsGrid.innerHTML = '';
+            if(burgersGrid) burgersGrid.innerHTML = '';
+            if(drinksGrid) drinksGrid.innerHTML = '';
+            if(addonsGrid) addonsGrid.innerHTML = '';
 
             // Renderizar Hambúrgueres
-            menuItems.filter(item => item.category === 'Burguers').forEach(item => {
-                burgersGrid.innerHTML += createMenuItemHTML(item);
-            });
+            if (typeof menuItems !== 'undefined') {
+                menuItems.filter(item => item.category === 'Burguers').forEach(item => {
+                    burgersGrid.innerHTML += createMenuItemHTML(item);
+                });
 
-            // Renderizar Bebidas
-            menuItems.filter(item => item.category === 'Bebidas').forEach(item => {
-                drinksGrid.innerHTML += createMenuItemHTML(item);
-            });
+                // Renderizar Bebidas
+                menuItems.filter(item => item.category === 'Bebidas').forEach(item => {
+                    drinksGrid.innerHTML += createMenuItemHTML(item);
+                });
 
-            // Renderizar Adicionais
-            menuItems.filter(item => item.category === 'Adicionais').forEach(item => {
-                addonsGrid.innerHTML += createMenuItemHTML(item);
-            });
+                // Renderizar Adicionais
+                menuItems.filter(item => item.category === 'Adicionais').forEach(item => {
+                    addonsGrid.innerHTML += createMenuItemHTML(item);
+                });
+            } else {
+                console.error("Erro: menuItems não foi encontrado. Verifique se o menu-data.js carregou corretamente.");
+            }
         }
 
         /**
