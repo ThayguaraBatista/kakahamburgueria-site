@@ -85,42 +85,32 @@
     <script src="./menu-data.js"></script>
     <script src="./script.js"></script>
     <script>
-        /**
-         * Renderizar Cardápio Completo
-         */
         function renderMenu() {
             const burgersGrid = document.getElementById('burgersGrid');
             const drinksGrid = document.getElementById('drinksGrid');
             const addonsGrid = document.getElementById('addonsGrid');
 
-            // Limpar grids
             if(burgersGrid) burgersGrid.innerHTML = '';
             if(drinksGrid) drinksGrid.innerHTML = '';
             if(addonsGrid) addonsGrid.innerHTML = '';
 
-            // Renderizar Hambúrgueres
             if (typeof menuItems !== 'undefined') {
                 menuItems.filter(item => item.category === 'Burguers').forEach(item => {
                     burgersGrid.innerHTML += createMenuItemHTML(item);
                 });
 
-                // Renderizar Bebidas
                 menuItems.filter(item => item.category === 'Bebidas').forEach(item => {
                     drinksGrid.innerHTML += createMenuItemHTML(item);
                 });
 
-                // Renderizar Adicionais
                 menuItems.filter(item => item.category === 'Adicionais').forEach(item => {
                     addonsGrid.innerHTML += createMenuItemHTML(item);
                 });
             } else {
-                console.error("Erro: menuItems não foi encontrado. Verifique se o menu-data.js carregou corretamente.");
+                console.error("Erro: menuItems não foi encontrado.");
             }
         }
 
-        /**
-         * Criar HTML de Item do Menu
-         */
         function createMenuItemHTML(item) {
             return `
                 <div class="menu-item" onclick="openImageModal('${item.image}', '${item.name}')">
@@ -136,34 +126,22 @@
             `;
         }
 
-        /**
-         * Abrir Modal de Imagem
-         */
         function openImageModal(imageSrc, title) {
             document.getElementById('modalImage').src = imageSrc;
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('imageModal').classList.add('active');
         }
 
-        /**
-         * Fechar Modal de Imagem
-         */
         function closeImageModal() {
             document.getElementById('imageModal').classList.remove('active');
         }
 
-        /**
-         * Fechar modal ao clicar fora
-         */
         document.getElementById('imageModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeImageModal();
             }
         });
 
-        /**
-         * Renderizar cardápio ao carregar a página
-         */
         document.addEventListener('DOMContentLoaded', renderMenu);
     </script>
 </body>
