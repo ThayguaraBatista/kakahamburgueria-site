@@ -29,32 +29,72 @@
         </div>
     </section>
 
-    <script src="menu-data.js"></script>
-    <script>
-        function renderMenu() {
+  <script>
+        /**
+         * Busca os dados do Back-end (Node.js + SQL) e renderiza na tela
+         */
+        async function renderMenu() {
             const burgersGrid = document.getElementById('burgersGrid');
             const drinksGrid = document.getElementById('drinksGrid');
+            const addonsGrid = document.getElementById('addonsGrid');
 
-            if (typeof menuItems !== 'undefined') {
-                burgersGrid.innerHTML = menuItems.filter(i => i.category === 'Burguers')
-                    .map(item => createHTML(item)).join('');
+            try {
+                // Faz a chamada para o servidor Node na porta 3000
+                const resposta = await fetch('http://localhost:3000/api/cardapio');
                 
-                drinksGrid.innerHTML = menuItems.filter(i => i.category === 'Bebidas')
-                    .map(item => createHTML(item)).join('');
+                if (!resposta.ok) throw new Error('Falha ao buscar dados do servidor');
+                
+                const menuItems = await resposta.json();
+
+                // Renderiza Hambúrgueres
+                if(burgersGrid) {
+                    burgersGrid.innerHTML = menuItems
+                        .filter(i => i.categoria === 'Burguers')
+                        .map(item => createHTML(item)).join('');
+                }
+
+                // Renderiza Bebidas
+                if(drinksGrid) {
+                    drinksGrid.innerHTML = menuItems
+                        .filter(i => i.categoria === 'Bebidas')
+                        .map(item => createHTML(item)).join('');
+                }
+
+                // Renderiza Adicionais (Caso existam no banco)
+                if(addonsGrid) {
+                    addonsGrid.innerHTML = menuItems
+                        .filter(i => i.categoria === 'Adicionais')
+                        .map(item => createHTML(item)).join('');
+                }
+
+            } catch (erro) {
+                console.error("Erro ao conectar com o Back-end:", erro);
+                if(burgersGrid) burgersGrid.innerHTML = `<p style="color: white;">Erro ao carregar cardápio. Verifique se o servidor está rodando.</p>`;
             }
         }
 
+        /**
+         * Estrutura o HTML de cada item
+         * Note: Usei item.imagem (como está no SQL) e item.preco
+         */
         function createHTML(item) {
+            // Garante que o caminho da imagem esteja correto
+            const caminhoImagem = item.imagem || 'https://via.placeholder.com/300x200?text=Sem+Imagem';
+            
             return `
                 <div class="menu-item">
-                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400'">
+                    <img src="${caminhoImagem}" 
+                         alt="${item.nome}" 
+                         onerror="this.src='https://via.placeholder.com/300x200?text=Erro+na+Imagem'">
                     <div class="menu-item-content">
-                        <h3>${item.name}</h3>
-                        <p>${item.description}</p>
-                        <div class="menu-item-price">R$ ${item.price.toFixed(2)}</div>
+                        <h3>${item.nome}</h3>
+                        <p>${item.descricao || ''}</p>
+                        <div class="menu-item-price">R$ ${Number(item.preco).toFixed(2)}</div>
                     </div>
                 </div>`;
         }
+
+        // Inicia a renderização quando a página termina de carregar
         document.addEventListener('DOMContentLoaded', renderMenu);
     </script>
 </body>
